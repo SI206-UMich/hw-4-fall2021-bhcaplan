@@ -32,7 +32,9 @@ class Customer:
     # Submit_order takes a cashier, a stall and an amount as parameters, 
     # it deducts the amount from the customer’s wallet and calls the receive_payment method on the cashier object
     def submit_order(self, cashier, stall, amount): 
-        pass
+        total = Cashier.receive_payment(stall, amount)
+        self.wallet -= total
+        Cashier.__init__(self.earnings) += total
 
     # The __str__ method prints the customer's information.    
     def __str__(self):
@@ -82,19 +84,28 @@ class Stall:
         self.earnings = earnings
 
     def process_order(self, name, quantity):
-        pass
+        if self.inventory[name] >= quantity:
+            self.inventory[name] -= quantity
+        else:
+            return f"There is not enough food in the inventory.  There is only {self.inventory[name]}"
 
     def has_item (self, name, quantity):
-        pass
+        if quantity <= self.inventory[name]:
+            return True
+        else:
+            return False
 
     def  stock_up(self, name, quantity):
-        pass
+        if name in self.inventory:
+            self.inventory[name] += quantity
+        else:
+            self.inventory[name] = quantity
 
-    def compute_cost(self, quanityt):
-        pass
+    def compute_cost(self, quantity):
+        return quantity * self.cost
 
     def __str__(self):
-        pass
+        return f"Hello, we are {self.name}. This is the current menu {self.inventory}. We charge ${self.cost} per item. We have ${self.earnings} in total."
 
 
 
@@ -202,6 +213,29 @@ class TestAllMethods(unittest.TestCase):
 ### Write main function
 def main():
     #Create different objects 
+    inventory_1 = {"chicken": 15, "steak": 25, "shrimp": 70, "lobster": 20}
+    inventory_2 = {"apple": 20, "banana": 35, "watermelon": 8}
+    inventory_3 = {"pinto_bean": 20, "black_bean": 25, "kidney_bean": 15, "lima_bean": 40}
+
+    customer_1 = ("Ben", 300)
+    customer_2 = ("Stacy", 450)
+    customer_3 = ("Adam", 225)
+
+    ex_1 = Customer(customer_1)
+    ex_2 = Customer(customer_2)
+    ex_3 = Customer(customer_3)
+
+    stall_1 = ("steak", inventory_1, 15)
+    stall_2 = ("watermelon", inventory_2, 5)
+
+    ex_4 = Stall(stall_1)
+    ex_5 = Stall(stall_2)
+
+    cashier_1 = ("Linda", ["shrimp", "peach", "steak", "icecream", "lemon"])
+    cashier_2 = ("Avery", ["watermelon", "lima_bean", "apple", "lobster", "cucumber"])
+
+    ex_6 = Cashier(cashier_1)
+    ex_7 = Cashier(cashier_2)
 
     #Try all cases in the validate_order function
     #Below you need to have *each customer instance* try the four cases
