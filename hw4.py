@@ -1,3 +1,7 @@
+# Your name: Blake Caplan
+# Your student id: 0364 5257
+# Your email: bhcaplan@umich.edu
+# List who you have worked with on this homework:
 
 import unittest
 
@@ -71,8 +75,27 @@ class Cashier:
 
 ## Complete the Stall class here following the instructions in HW_4_instructions_rubric
 class Stall:
-    
-    pass
+    def __init__(self, name, inventory, cost = 7, earnings = 0):
+        self.name = name
+        self.inventory = inventory
+        self.cost = cost
+        self.earnings = earnings
+
+    def process_order(self, name, quantity):
+        pass
+
+    def has_item (self, name, quantity):
+        pass
+
+    def  stock_up(self, name, quantity):
+        pass
+
+    def compute_cost(self, quanityt):
+        pass
+
+    def __str__(self):
+        pass
+
 
 
 class TestAllMethods(unittest.TestCase):
